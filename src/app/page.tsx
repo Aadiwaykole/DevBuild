@@ -10,6 +10,7 @@ export default function Home() {
       <Hero />
       <DashboardPreview />
       <Features />
+      
     </main>
   );
 }

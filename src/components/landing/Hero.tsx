@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, Sparkles } from "lucide-react";
-import GitHubSignIn from "@/components/GitHubSignIn";
+import GitHubSignIn from "@/components/auth/GitHubSignIn";
 
 export default function Hero() {
   return (
@@ -18,7 +18,12 @@ export default function Hero() {
         <span className="block text-zinc-400">
           Automatically Documented.
         </span>
-      </h1>
+
+
+
+
+
+             </h1>
 
       <p className="relative z-10 mt-8 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
         DevBuild connects with your GitHub, understands your projects,
