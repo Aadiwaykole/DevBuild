@@ -34,3 +34,43 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+# DevBuild
+
+AI-powered developer growth intelligence platform that transforms GitHub activity into a meaningful developer journey.
+
+## Problem
+
+GitHub is excellent for storing and showcasing code, but it does not provide a clear picture of how a developer has grown over time.
+
+Developers may have hundreds of repositories, commits, technologies, and contributions, but answering questions like these is difficult:
+
+- How have my technical skills evolved?
+- Which technologies am I actually using the most?
+- Which projects best demonstrate my abilities?
+- When did I start using a particular technology?
+- What areas should I improve next?
+- How can I turn my GitHub activity into meaningful career insights?
+
+## Solution
+
+DevBuild connects to a developer's GitHub account and analyzes their development activity.
+
+Instead of simply displaying GitHub repositories, DevBuild converts raw GitHub data into meaningful developer intelligence.
+
+```text
+GitHub Activity
+       ↓
+Repositories
+       ↓
+Commits & Contributions
+       ↓
+Languages & Technologies
+       ↓
+Developer Analysis
+       ↓
+Skills + Timeline + Growth
+       ↓
+AI-Powered Insights
