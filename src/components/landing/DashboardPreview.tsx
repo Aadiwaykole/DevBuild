@@ -8,7 +8,7 @@ import {
 
 export default function DashboardPreview() {
   return (
-    <section className="relative mx-auto w-full max-w-6xl px-6 pb-32">
+    <section id="how-it-works"className="relative mx-auto w-full max-w-6xl px-6 pb-32">
       
       {/* Glow behind dashboard */}
       <div className="absolute left-1/2 top-20 -z-10 h-96 w-3/4 -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
