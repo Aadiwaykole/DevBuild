@@ -1,6 +1,8 @@
 "use client";
+"use client";
 
 import { useState } from "react";
+import CommitActivity from "./CommitActivity";
 
 interface RepositoryCardProps {
   owner: string;
@@ -25,6 +27,7 @@ interface Commit {
 interface CommitResponse {
   totalCommits: number;
   latestCommit: Commit;
+  monthlyActivity: Record<string, number>;
 }
 
 export default function RepositoryCard({
@@ -89,6 +92,9 @@ export default function RepositoryCard({
           <p className="mt-1 text-sm text-zinc-300">
             {commits.latestCommit?.commit.message}
           </p>
+          <CommitActivity
+                monthlyActivity={commits.monthlyActivity}
+          />
         </div>
       )}
     </div>

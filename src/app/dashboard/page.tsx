@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import RepositoryCard from "@/components/dashboard/RepositoryCard";
+import CommitActivity from "@/components/dashboard/CommitActivity";
+
 
 interface GitHubRepository {
   id: number;

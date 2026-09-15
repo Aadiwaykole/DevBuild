@@ -1,6 +1,18 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+
+interface GitHubCommit {
+  sha: string;
+  commit: {
+    message: string;
+    author: {
+      name: string;
+      date: string;
+    } | null;
+  };
+}
+
 export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
 
@@ -23,8 +35,13 @@ export async function GET(request: Request) {
     );
   }
 
+const allCommits: GitHubCommit[] = [];
+
+let page = 1;
+
+while (true) {
   const response = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}/commits`,
+    `https://api.github.com/repos/${owner}/${repo}/commits?per_page=100&page=${page}`,
     {
       headers: {
         Authorization: `Bearer ${session.accessToken}`,
@@ -45,14 +62,41 @@ export async function GET(request: Request) {
     );
   }
 
-  const commits = await response.json();
+  const commits: GitHubCommit[] = await response.json();
 
-  const totalCommits = commits.length;
+  allCommits.push(...commits);
 
-  const latestCommit = commits[0];
+  if (commits.length < 100) {
+    break;
+  }
 
-  return Response.json({
-    totalCommits,
-    latestCommit,
-  });
+  page++;
+}
+
+const totalCommits = allCommits.length;
+
+const latestCommit = allCommits[0];
+
+const monthlyActivity = allCommits.reduce(
+  (activity: Record<string, number>, commit) => {
+    const date = commit.commit.author?.date;
+
+    if (!date) {
+      return activity;
+    }
+
+    const month = new Date(date).toISOString().slice(0, 7);
+
+    activity[month] = (activity[month] || 0) + 1;
+
+    return activity;
+  },
+  {}
+);
+
+return Response.json({
+  totalCommits,
+  latestCommit,
+  monthlyActivity,
+});
 }
