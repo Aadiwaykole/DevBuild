@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
 
   if (!session?.accessToken) {
@@ -11,8 +11,17 @@ export async function GET() {
     );
   }
 
-  const owner = "Aadiwaykole";
-  const repo = "DevBuild";
+  const { searchParams } = new URL(request.url);
+
+  const owner = searchParams.get("owner");
+  const repo = searchParams.get("repo");
+
+  if (!owner || !repo) {
+    return Response.json(
+      { error: "Owner and repo are required" },
+      { status: 400 }
+    );
+  }
 
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/commits`,
@@ -38,5 +47,12 @@ export async function GET() {
 
   const commits = await response.json();
 
-  return Response.json(commits);
+  const totalCommits = commits.length;
+
+  const latestCommit = commits[0];
+
+  return Response.json({
+    totalCommits,
+    latestCommit,
+  });
 }

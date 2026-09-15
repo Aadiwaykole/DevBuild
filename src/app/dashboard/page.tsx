@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
+import RepositoryCard from "@/components/dashboard/RepositoryCard";
 
 interface GitHubRepository {
   id: number;
@@ -9,6 +10,9 @@ interface GitHubRepository {
   language: string | null;
   stargazers_count: number;
   forks_count: number;
+  owner: {
+    login: string;
+  };
 }
 
 export default async function Dashboard() {
@@ -28,13 +32,9 @@ export default async function Dashboard() {
     }
   );
 
-if (!response.ok) {
-  const error = await response.text();
-
-  throw new Error(
-    `GitHub API error: ${response.status} ${error}`
-  );
-}
+  if (!response.ok) {
+    throw new Error("Failed to fetch repositories");
+  }
 
   const repositories: GitHubRepository[] = await response.json();
 
@@ -73,40 +73,28 @@ if (!response.ok) {
 
         <div className="mt-10 grid gap-4 md:grid-cols-4">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <p className="text-sm text-zinc-500">
-              Repositories
-            </p>
-
+            <p className="text-sm text-zinc-500">Repositories</p>
             <p className="mt-3 text-3xl font-semibold">
               {totalRepositories}
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <p className="text-sm text-zinc-500">
-              Languages
-            </p>
-
+            <p className="text-sm text-zinc-500">Languages</p>
             <p className="mt-3 text-3xl font-semibold">
               {languages.size}
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <p className="text-sm text-zinc-500">
-              Stars
-            </p>
-
+            <p className="text-sm text-zinc-500">Stars</p>
             <p className="mt-3 text-3xl font-semibold">
               {totalStars}
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-            <p className="text-sm text-zinc-500">
-              Forks
-            </p>
-
+            <p className="text-sm text-zinc-500">Forks</p>
             <p className="mt-3 text-3xl font-semibold">
               {totalForks}
             </p>
@@ -120,32 +108,15 @@ if (!response.ok) {
 
           <div className="mt-6 grid gap-4">
             {repositories.map((repo) => (
-              <div
+              <RepositoryCard
                 key={repo.id}
-                className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6"
-              >
-                <h3 className="text-xl font-semibold">
-                  {repo.name}
-                </h3>
-
-                <p className="mt-2 text-sm text-zinc-400">
-                  {repo.description || "No description"}
-                </p>
-
-                <div className="mt-4 flex gap-5 text-sm text-zinc-500">
-                  <span>
-                    {repo.language || "Unknown"}
-                  </span>
-
-                  <span>
-                    ★ {repo.stargazers_count}
-                  </span>
-
-                  <span>
-                    Forks {repo.forks_count}
-                  </span>
-                </div>
-              </div>
+                owner={repo.owner.login}
+                name={repo.name}
+                description={repo.description}
+                language={repo.language}
+                stars={repo.stargazers_count}
+                forks={repo.forks_count}
+              />
             ))}
           </div>
         </div>
