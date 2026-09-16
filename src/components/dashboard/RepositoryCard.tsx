@@ -59,6 +59,12 @@ interface RepositoryAnalysis {
       database: string[];
     };
 
+    metrics: {
+      totalFiles: number;
+      totalFolders: number;
+      fileTypes: Record<string, number>;
+    };
+
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
@@ -320,6 +326,53 @@ export default function RepositoryCard({
                   None detected
                 </span>
               )}
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-white">
+              Repository Metrics
+            </h3>
+
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <div className="rounded-xl bg-zinc-900 p-4">
+                <p className="text-xs text-zinc-500">
+                  Total Files
+                </p>
+
+                <p className="mt-1 text-xl font-semibold text-white">
+                  {repositoryAnalysis.analysis.metrics.totalFiles}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-zinc-900 p-4">
+                <p className="text-xs text-zinc-500">
+                  Total Folders
+                </p>
+
+                <p className="mt-1 text-xl font-semibold text-white">
+                  {repositoryAnalysis.analysis.metrics.totalFolders}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p className="text-xs text-zinc-500">
+                File Composition
+              </p>
+
+              <div className="mt-2 flex flex-wrap gap-2">
+                {Object.entries(
+                  repositoryAnalysis.analysis.metrics.fileTypes
+                ).map(([extension, count]) => (
+                  <span
+                    key={extension}
+                    className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+                  >
+                    {extension}: {count}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 

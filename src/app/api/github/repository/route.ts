@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { detectTechnologies } from "@/lib/repositoryAnalysis";
 import { analyzeArchitecture } from "@/lib/architectureAnalysis";
+import { calculateRepositoryMetrics } from "@/lib/repositoryMetrics";
 
 interface GitHubTreeItem {
   path: string;
@@ -116,6 +117,7 @@ export async function GET(request: Request) {
   packageJson?.dependencies || {},
   packageJson?.devDependencies || {}
 );
+const metrics = calculateRepositoryMetrics(files);
 
   return Response.json({
     repository: {
@@ -123,11 +125,11 @@ export async function GET(request: Request) {
       description: repository.description,
       defaultBranch: repository.default_branch,
     },
-
-    analysis: {
+analysis: {
   hasPackageJson: !!packageFile,
   technologies,
   architecture,
+  metrics,
   dependencies: packageJson?.dependencies || {},
   devDependencies: packageJson?.devDependencies || {},
 },
