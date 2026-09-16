@@ -3,7 +3,8 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import RepositoryCard from "@/components/dashboard/RepositoryCard";
 import CommitActivity from "@/components/dashboard/CommitActivity";
-
+import DeveloperActivity from "@/components/dashboard/DeveloperActivity";
+import LanguageAnalysis from "@/components/dashboard/LanguageAnalysis";
 
 interface GitHubRepository {
   id: number;
@@ -12,6 +13,12 @@ interface GitHubRepository {
   language: string | null;
   stargazers_count: number;
   forks_count: number;
+  created_at: string;
+  updated_at: string;
+  default_branch: string;
+  open_issues_count: number;
+  size: number;
+  html_url: string;
   owner: {
     login: string;
   };
@@ -103,6 +110,9 @@ export default async function Dashboard() {
           </div>
         </div>
 
+        <DeveloperActivity />
+        <LanguageAnalysis />
+
         <div className="mt-16">
           <h2 className="text-2xl font-semibold">
             Your Repositories
@@ -118,9 +128,18 @@ export default async function Dashboard() {
                 language={repo.language}
                 stars={repo.stargazers_count}
                 forks={repo.forks_count}
+                createdAt={repo.created_at}
+                updatedAt={repo.updated_at}
+                defaultBranch={repo.default_branch}
+                openIssues={repo.open_issues_count}
+                size={repo.size}
+                url={repo.html_url}
               />
+
             ))}
+
           </div>
+
         </div>
       </div>
     </main>
