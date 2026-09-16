@@ -46,6 +46,23 @@ interface RepositoryAnalysis {
     description: string | null;
     defaultBranch: string;
   };
+
+  analysis: {
+    hasPackageJson: boolean;
+    technologies: string[];
+
+    architecture: {
+      projectType: string;
+      architecture: string;
+      frontend: boolean;
+      backend: boolean;
+      database: string[];
+    };
+
+    dependencies: Record<string, string>;
+    devDependencies: Record<string, string>;
+  };
+
   files: RepositoryFile[];
 }
 
@@ -241,7 +258,72 @@ export default function RepositoryCard({
 
       {repositoryAnalysis && (
         <div className="mt-5 border-t border-zinc-800 pt-5">
+
           <h3 className="text-lg font-semibold text-white">
+            Technology Stack
+          </h3>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {repositoryAnalysis.analysis.technologies.map(
+              (technology) => (
+                <span
+                  key={technology}
+                  className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+                >
+                  {technology}
+                </span>
+              )
+            )}
+          </div>
+
+          <div className="mt-8 grid gap-3 md:grid-cols-2">
+            <div className="rounded-xl bg-zinc-900 p-4">
+              <p className="text-xs text-zinc-500">
+                Project Type
+              </p>
+
+              <p className="mt-1 text-sm text-white">
+                {repositoryAnalysis.analysis.architecture.projectType}
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-zinc-900 p-4">
+              <p className="text-xs text-zinc-500">
+                Architecture
+              </p>
+
+              <p className="mt-1 text-sm text-white">
+                {repositoryAnalysis.analysis.architecture.architecture}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <p className="text-xs text-zinc-500">
+              Database
+            </p>
+
+            <div className="mt-2 flex flex-wrap gap-2">
+              {repositoryAnalysis.analysis.architecture.database.length > 0 ? (
+                repositoryAnalysis.analysis.architecture.database.map(
+                  (database) => (
+                    <span
+                      key={database}
+                      className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+                    >
+                      {database}
+                    </span>
+                  )
+                )
+              ) : (
+                <span className="text-sm text-zinc-600">
+                  None detected
+                </span>
+              )}
+            </div>
+          </div>
+
+          <h3 className="mt-8 text-lg font-semibold text-white">
             Repository Structure
           </h3>
 
