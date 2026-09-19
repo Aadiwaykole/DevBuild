@@ -35,8 +35,7 @@ export function analyzeRepositoryHealth(
         path === "docker-compose.yaml"
     ),
     cicd: paths.some(
-      (path) =>
-        path.startsWith(".github/workflows/")
+      (path) => path.startsWith(".github/workflows/")
     ),
     documentation: paths.some(
       (path) =>

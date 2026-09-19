@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CommitActivity from "./CommitActivity";
+import RepositoryHealth from "./RepositoryHealth";
 
 interface RepositoryCardProps {
   owner: string;
@@ -35,11 +36,6 @@ interface CommitResponse {
   monthlyActivity: Record<string, number>;
 }
 
-interface RepositoryFile {
-  path: string;
-  type: string;
-}
-
 interface RepositoryAnalysis {
   repository: {
     name: string;
@@ -54,22 +50,30 @@ interface RepositoryAnalysis {
     architecture: {
       projectType: string;
       architecture: string;
-      frontend: boolean;
-      backend: boolean;
       database: string[];
     };
 
-    metrics: {
-      totalFiles: number;
-      totalFolders: number;
-      fileTypes: Record<string, number>;
-    };
+    metrics: Record<string, number>;
 
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
+
+    dependencyAnalysis: {
+      [key: string]: unknown;
+    };
+
+    health: {
+      score: number;
+      issues: string[];
+      warnings: string[];
+      suggestions: string[];
+    };
   };
 
-  files: RepositoryFile[];
+  files: {
+    path: string;
+    type: string;
+  }[];
 }
 
 export default function RepositoryCard({
@@ -86,19 +90,26 @@ export default function RepositoryCard({
   size,
   url,
 }: RepositoryCardProps) {
-  const [commits, setCommits] = useState<CommitResponse | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [commits, setCommits] =
+    useState<CommitResponse | null>(null);
 
   const [repositoryAnalysis, setRepositoryAnalysis] =
     useState<RepositoryAnalysis | null>(null);
-  const [analysisLoading, setAnalysisLoading] = useState(false);
+
+  const [loadingCommits, setLoadingCommits] =
+    useState(false);
+
+  const [analysisLoading, setAnalysisLoading] =
+    useState(false);
 
   async function handleViewCommits() {
-    setLoading(true);
+    setLoadingCommits(true);
 
     try {
       const response = await fetch(
-        `/api/github/commits?owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(name)}`
+        `/api/github/commits?owner=${encodeURIComponent(
+          owner
+        )}&repo=${encodeURIComponent(name)}`
       );
 
       if (!response.ok) {
@@ -111,7 +122,7 @@ export default function RepositoryCard({
     } catch (error) {
       console.error("Failed to fetch commits:", error);
     } finally {
-      setLoading(false);
+      setLoadingCommits(false);
     }
   }
 
@@ -120,18 +131,24 @@ export default function RepositoryCard({
 
     try {
       const response = await fetch(
-        `/api/github/repository?owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(name)}`
+        `/api/github/repository?owner=${encodeURIComponent(
+          owner
+        )}&repo=${encodeURIComponent(name)}`
       );
 
       if (!response.ok) {
         throw new Error("Failed to analyze repository");
       }
 
-      const data: RepositoryAnalysis = await response.json();
+      const data: RepositoryAnalysis =
+        await response.json();
 
       setRepositoryAnalysis(data);
     } catch (error) {
-      console.error("Repository analysis failed:", error);
+      console.error(
+        "Failed to analyze repository:",
+        error
+      );
     } finally {
       setAnalysisLoading(false);
     }
@@ -203,34 +220,34 @@ export default function RepositoryCard({
       </div>
 
       <div className="mt-5 flex flex-wrap gap-5 text-sm text-zinc-500">
+        <span>★ {stars}</span>
+
+        <span>Forks {forks}</span>
+
         <span>
-          ★ {stars}
+          Created{" "}
+          {new Date(createdAt).toLocaleDateString()}
         </span>
 
         <span>
-          Forks {forks}
-        </span>
-
-        <span>
-          Created {new Date(createdAt).toLocaleDateString()}
-        </span>
-
-        <span>
-          Updated {new Date(updatedAt).toLocaleDateString()}
+          Updated{" "}
+          {new Date(updatedAt).toLocaleDateString()}
         </span>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="mt-6 flex flex-wrap gap-3">
         <button
           onClick={handleViewCommits}
-          className="mt-6 cursor-pointer rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition hover:bg-zinc-800"
+          className="cursor-pointer rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition hover:bg-zinc-800"
         >
-          {loading ? "Loading..." : "View Commits"}
+          {loadingCommits
+            ? "Loading..."
+            : "View Commits"}
         </button>
 
         <button
           onClick={handleAnalyzeRepository}
-          className="mt-6 cursor-pointer rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition hover:bg-zinc-800"
+          className="cursor-pointer rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition hover:bg-zinc-800"
         >
           {analysisLoading
             ? "Analyzing..."
@@ -263,33 +280,48 @@ export default function RepositoryCard({
       )}
 
       {repositoryAnalysis && (
-        <div className="mt-5 border-t border-zinc-800 pt-5">
-
-          <h3 className="text-lg font-semibold text-white">
-            Technology Stack
+        <div className="mt-5 border-t border-zinc-800 pt-6">
+          <h3 className="text-xl font-semibold text-white">
+            Repository Analysis
           </h3>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {repositoryAnalysis.analysis.technologies.map(
-              (technology) => (
-                <span
-                  key={technology}
-                  className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
-                >
-                  {technology}
+          <div className="mt-6">
+            <p className="text-sm text-zinc-500">
+              Technology Stack
+            </p>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {repositoryAnalysis.analysis.technologies
+                .length > 0 ? (
+                repositoryAnalysis.analysis.technologies.map(
+                  (technology) => (
+                    <span
+                      key={technology}
+                      className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+                    >
+                      {technology}
+                    </span>
+                  )
+                )
+              ) : (
+                <span className="text-sm text-zinc-600">
+                  No technologies detected
                 </span>
-              )
-            )}
+              )}
+            </div>
           </div>
 
-          <div className="mt-8 grid gap-3 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             <div className="rounded-xl bg-zinc-900 p-4">
               <p className="text-xs text-zinc-500">
                 Project Type
               </p>
 
-              <p className="mt-1 text-sm text-white">
-                {repositoryAnalysis.analysis.architecture.projectType}
+              <p className="mt-2 text-sm text-white">
+                {
+                  repositoryAnalysis.analysis.architecture
+                    .projectType
+                }
               </p>
             </div>
 
@@ -298,8 +330,11 @@ export default function RepositoryCard({
                 Architecture
               </p>
 
-              <p className="mt-1 text-sm text-white">
-                {repositoryAnalysis.analysis.architecture.architecture}
+              <p className="mt-2 text-sm text-white">
+                {
+                  repositoryAnalysis.analysis.architecture
+                    .architecture
+                }
               </p>
             </div>
           </div>
@@ -310,7 +345,8 @@ export default function RepositoryCard({
             </p>
 
             <div className="mt-2 flex flex-wrap gap-2">
-              {repositoryAnalysis.analysis.architecture.database.length > 0 ? (
+              {repositoryAnalysis.analysis.architecture
+                .database.length > 0 ? (
                 repositoryAnalysis.analysis.architecture.database.map(
                   (database) => (
                     <span
@@ -330,76 +366,101 @@ export default function RepositoryCard({
           </div>
 
           <div className="mt-8">
-            <h3 className="text-lg font-semibold text-white">
+            <p className="text-sm text-zinc-500">
               Repository Metrics
-            </h3>
+            </p>
 
-            <div className="mt-4 grid gap-3 md:grid-cols-2">
-              <div className="rounded-xl bg-zinc-900 p-4">
-                <p className="text-xs text-zinc-500">
-                  Total Files
-                </p>
+            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {Object.entries(
+                repositoryAnalysis.analysis.metrics
+              ).map(([metric, value]) => (
+                <div
+                  key={metric}
+                  className="rounded-xl bg-zinc-900 p-4"
+                >
+                  <p className="text-xs text-zinc-500">
+                    {metric}
+                  </p>
 
-                <p className="mt-1 text-xl font-semibold text-white">
-                  {repositoryAnalysis.analysis.metrics.totalFiles}
-                </p>
-              </div>
-
-              <div className="rounded-xl bg-zinc-900 p-4">
-                <p className="text-xs text-zinc-500">
-                  Total Folders
-                </p>
-
-                <p className="mt-1 text-xl font-semibold text-white">
-                  {repositoryAnalysis.analysis.metrics.totalFolders}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-4">
-              <p className="text-xs text-zinc-500">
-                File Composition
-              </p>
-
-              <div className="mt-2 flex flex-wrap gap-2">
-                {Object.entries(
-                  repositoryAnalysis.analysis.metrics.fileTypes
-                ).map(([extension, count]) => (
-                  <span
-                    key={extension}
-                    className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
-                  >
-                    {extension}: {count}
-                  </span>
-                ))}
-              </div>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {String(value)}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <h3 className="mt-8 text-lg font-semibold text-white">
-            Repository Structure
-          </h3>
+          <div className="mt-8">
+            <p className="text-sm text-zinc-500">
+              Dependencies
+            </p>
 
-          <p className="mt-1 text-sm text-zinc-500">
-            Default branch:{" "}
-            {repositoryAnalysis.repository.defaultBranch}
-          </p>
-
-          <div className="mt-5 max-h-96 overflow-y-auto rounded-xl bg-zinc-900 p-4">
-            {repositoryAnalysis.files.map((file) => (
-              <div
-                key={file.path}
-                className="flex items-center justify-between border-b border-zinc-800 py-2 last:border-b-0"
-              >
-                <span className="text-sm text-zinc-300">
-                  {file.path}
+            <div className="mt-3 flex flex-wrap gap-2">
+              {Object.entries(
+                repositoryAnalysis.analysis.dependencies
+              ).map(([dependency, version]) => (
+                <span
+                  key={dependency}
+                  className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+                >
+                  {dependency} {version}
                 </span>
+              ))}
+            </div>
+          </div>
 
-                <span className="text-xs text-zinc-600">
-                  {file.type}
+          <div className="mt-6">
+            <p className="text-sm text-zinc-500">
+              Dev Dependencies
+            </p>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {Object.entries(
+                repositoryAnalysis.analysis.devDependencies
+              ).map(([dependency, version]) => (
+                <span
+                  key={dependency}
+                  className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm text-zinc-300"
+                >
+                  {dependency} {version}
                 </span>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <RepositoryHealth
+            health={repositoryAnalysis.analysis.health}
+          />
+
+          <div className="mt-8">
+            <p className="text-sm text-zinc-500">
+              Repository Structure
+            </p>
+
+            <p className="mt-1 text-xs text-zinc-600">
+              Default branch:{" "}
+              {
+                repositoryAnalysis.repository
+                  .defaultBranch
+              }
+            </p>
+
+            <div className="mt-4 max-h-80 overflow-y-auto rounded-xl border border-zinc-800 bg-zinc-950">
+              {repositoryAnalysis.files.map((file) => (
+                <div
+                  key={file.path}
+                  className="flex items-center justify-between border-b border-zinc-800 px-4 py-3 last:border-b-0"
+                >
+                  <span className="text-sm text-zinc-300">
+                    {file.path}
+                  </span>
+
+                  <span className="text-xs text-zinc-600">
+                    {file.type}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
