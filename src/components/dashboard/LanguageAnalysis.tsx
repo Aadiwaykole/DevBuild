@@ -26,9 +26,13 @@ export default function LanguageAnalysis() {
         const response = await fetch("/api/github/languages");
 
         if (!response.ok) {
-          throw new Error("Failed to fetch languages");
-        }
+          const errorData = await response.json();
+          console.log("Language API Error:", errorData);
 
+          throw new Error(
+            errorData.error || "Failed to fetch languages"
+          );
+        }
         const result = await response.json();
 
         const languages = Object.entries(result.languageUsage)

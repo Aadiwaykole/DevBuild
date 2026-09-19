@@ -5,6 +5,9 @@ import RepositoryCard from "@/components/dashboard/RepositoryCard";
 import CommitActivity from "@/components/dashboard/CommitActivity";
 import DeveloperActivity from "@/components/dashboard/DeveloperActivity";
 import LanguageAnalysis from "@/components/dashboard/LanguageAnalysis";
+import DeveloperTimeline from "@/components/dashboard/DeveloperTimeline";
+import SkillDetection from "@/components/dashboard/SkillDetection";
+import AIInsights from "@/components/dashboard/AIInsights";
 
 interface GitHubRepository {
   id: number;
@@ -111,6 +114,9 @@ export default async function Dashboard() {
         </div>
 
         <DeveloperActivity />
+        <DeveloperTimeline />
+        <SkillDetection/>
+        <AIInsights />
         <LanguageAnalysis />
 
         <div className="mt-16">
