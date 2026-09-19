@@ -370,23 +370,51 @@ export default function RepositoryCard({
               Repository Metrics
             </p>
 
-            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
-              {Object.entries(
-                repositoryAnalysis.analysis.metrics
-              ).map(([metric, value]) => (
-                <div
-                  key={metric}
-                  className="rounded-xl bg-zinc-900 p-4"
-                >
-                  <p className="text-xs text-zinc-500">
-                    {metric}
-                  </p>
+            <div className="mt-3 grid gap-3 md:grid-cols-3">
+              <div className="rounded-xl bg-zinc-900 p-4">
+                <p className="text-xs text-zinc-500">
+                  Total Files
+                </p>
 
-                  <p className="mt-2 text-lg font-semibold text-white">
-                    {String(value)}
-                  </p>
+                <p className="mt-2 text-lg font-semibold text-white">
+                  {repositoryAnalysis.analysis.metrics.totalFiles}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-zinc-900 p-4">
+                <p className="text-xs text-zinc-500">
+                  Total Folders
+                </p>
+
+                <p className="mt-2 text-lg font-semibold text-white">
+                  {repositoryAnalysis.analysis.metrics.totalFolders}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-zinc-900 p-4">
+                <p className="text-xs text-zinc-500">
+                  File Types
+                </p>
+
+                <div className="mt-3 space-y-2">
+                  {Object.entries(
+                    repositoryAnalysis.analysis.metrics.fileTypes
+                  ).map(([type, count]) => (
+                    <div
+                      key={type}
+                      className="flex items-center justify-between"
+                    >
+                      <span className="text-sm text-zinc-400">
+                        {type}
+                      </span>
+
+                      <span className="text-sm font-medium text-white">
+                        {count}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
 
