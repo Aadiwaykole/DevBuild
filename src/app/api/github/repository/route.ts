@@ -3,6 +3,8 @@ import { authOptions } from "@/lib/auth";
 import { detectTechnologies } from "@/lib/repositoryAnalysis";
 import { analyzeArchitecture } from "@/lib/architectureAnalysis";
 import { calculateRepositoryMetrics } from "@/lib/repositoryMetrics";
+import { analyzeDependencies } from "@/lib/dependencyAnalysis";
+import { analyzeRepositoryHealth } from "@/lib/analyzeRepositoryHealth";
 
 interface GitHubTreeItem {
   path: string;
@@ -112,12 +114,23 @@ export async function GET(request: Request) {
       )
     : [];
 
-    const architecture = analyzeArchitecture(
-  files,
-  packageJson?.dependencies || {},
-  packageJson?.devDependencies || {}
-);
-const metrics = calculateRepositoryMetrics(files);
+  const health = analyzeRepositoryHealth(
+    files,
+    technologies
+  );
+
+  const architecture = analyzeArchitecture(
+    files,
+    packageJson?.dependencies || {},
+    packageJson?.devDependencies || {}
+  );
+
+  const metrics = calculateRepositoryMetrics(files);
+
+  const dependencyAnalysis = analyzeDependencies(
+    packageJson?.dependencies || {},
+    packageJson?.devDependencies || {}
+  );
 
   return Response.json({
     repository: {
@@ -125,14 +138,17 @@ const metrics = calculateRepositoryMetrics(files);
       description: repository.description,
       defaultBranch: repository.default_branch,
     },
-analysis: {
-  hasPackageJson: !!packageFile,
-  technologies,
-  architecture,
-  metrics,
-  dependencies: packageJson?.dependencies || {},
-  devDependencies: packageJson?.devDependencies || {},
-},
+
+    analysis: {
+      hasPackageJson: !!packageFile,
+      technologies,
+      architecture,
+      metrics,
+      dependencies: packageJson?.dependencies || {},
+      devDependencies: packageJson?.devDependencies || {},
+      dependencyAnalysis,
+      health,
+    },
 
     files,
   });
