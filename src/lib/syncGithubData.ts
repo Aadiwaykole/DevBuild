@@ -1,4 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import { syncGithubCommits } from "@/lib/syncGithubCommits";
+import { syncGithubLanguages } from "@/lib/syncGithubLanguages";
+import { syncGithubDependencies } from "@/lib/syncGithubDependencies";
 
 interface GitHubUser {
   id: number;
@@ -60,8 +63,12 @@ export async function syncGithubData(accessToken: string) {
   const githubRepositories: GitHubRepository[] =
     await repositoriesResponse.json();
 
+  let totalCommitsSynced = 0;
+  let totalLanguagesSynced = 0;
+  let totalDependenciesSynced = 0;
+
   for (const repo of githubRepositories) {
-    await prisma.repository.upsert({
+    const repository = await prisma.repository.upsert({
       where: {
         githubId: repo.id,
       },
@@ -83,11 +90,41 @@ export async function syncGithubData(accessToken: string) {
         userId: user.id,
       },
     });
+
+    const commitsSynced = await syncGithubCommits(
+      accessToken,
+      githubUser.login,
+      repo.name,
+      repository.id
+    );
+
+    totalCommitsSynced += commitsSynced;
+
+    const languagesSynced = await syncGithubLanguages(
+      accessToken,
+      githubUser.login,
+      repo.name,
+      repository.id
+    );
+
+    totalLanguagesSynced += languagesSynced;
+
+    const dependenciesSynced = await syncGithubDependencies(
+      accessToken,
+      githubUser.login,
+      repo.name,
+      repository.id
+    );
+
+    totalDependenciesSynced += dependenciesSynced;
   }
 
   return {
     userId: user.id,
     username: user.username,
     repositoriesSynced: githubRepositories.length,
+    commitsSynced: totalCommitsSynced,
+    languagesSynced: totalLanguagesSynced,
+    dependenciesSynced: totalDependenciesSynced,
   };
 }
