@@ -30,5 +30,7 @@ export async function GET() {
 
   const repositories = await response.json();
 
-  return Response.json(repositories);
+ return Response.json({
+  repositories,
+});
 }

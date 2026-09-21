@@ -8,6 +8,7 @@ import LanguageAnalysis from "@/components/dashboard/LanguageAnalysis";
 import DeveloperTimeline from "@/components/dashboard/DeveloperTimeline";
 import SkillDetection from "@/components/dashboard/SkillDetection";
 import AIInsights from "@/components/dashboard/AIInsights";
+import SyncGithubButton from "@/components/dashboard/SyncGithubButton";
 
 interface GitHubRepository {
   id: number;
@@ -82,6 +83,7 @@ export default async function Dashboard() {
         <p className="mt-3 text-zinc-400">
           Understand your development activity.
         </p>
+        <SyncGithubButton />
 
         <div className="mt-10 grid gap-4 md:grid-cols-4">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
