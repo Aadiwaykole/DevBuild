@@ -5,22 +5,38 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user?.email) {
+  if (!session?.accessToken) {
     return Response.json(
       { error: "Unauthorized" },
       { status: 401 }
     );
   }
 
-  const user = await prisma.user.findFirst({
+  const githubResponse = await fetch("https://api.github.com/user", {
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+      Accept: "application/vnd.github+json",
+    },
+  });
+
+  if (!githubResponse.ok) {
+    return Response.json(
+      { error: "Failed to fetch GitHub user" },
+      { status: 401 }
+    );
+  }
+
+  const githubUser = await githubResponse.json();
+
+  const user = await prisma.user.findUnique({
     where: {
-      email: session.user.email,
+      githubId: String(githubUser.id),
     },
   });
 
   if (!user) {
     return Response.json(
-      { error: "User not found in database" },
+      { error: "User not found in database. Please sync GitHub data first." },
       { status: 404 }
     );
   }

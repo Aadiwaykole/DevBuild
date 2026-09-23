@@ -30,12 +30,16 @@ export type RepositoryAvgAggregateOutputType = {
   githubId: number | null
   stars: number | null
   forks: number | null
+  openIssues: number | null
+  size: number | null
 }
 
 export type RepositorySumAggregateOutputType = {
   githubId: number | null
   stars: number | null
   forks: number | null
+  openIssues: number | null
+  size: number | null
 }
 
 export type RepositoryMinAggregateOutputType = {
@@ -46,6 +50,12 @@ export type RepositoryMinAggregateOutputType = {
   language: string | null
   stars: number | null
   forks: number | null
+  defaultBranch: string | null
+  openIssues: number | null
+  size: number | null
+  htmlUrl: string | null
+  githubCreatedAt: Date | null
+  githubUpdatedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -59,6 +69,12 @@ export type RepositoryMaxAggregateOutputType = {
   language: string | null
   stars: number | null
   forks: number | null
+  defaultBranch: string | null
+  openIssues: number | null
+  size: number | null
+  htmlUrl: string | null
+  githubCreatedAt: Date | null
+  githubUpdatedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -72,6 +88,12 @@ export type RepositoryCountAggregateOutputType = {
   language: number
   stars: number
   forks: number
+  defaultBranch: number
+  openIssues: number
+  size: number
+  htmlUrl: number
+  githubCreatedAt: number
+  githubUpdatedAt: number
   createdAt: number
   updatedAt: number
   userId: number
@@ -83,12 +105,16 @@ export type RepositoryAvgAggregateInputType = {
   githubId?: true
   stars?: true
   forks?: true
+  openIssues?: true
+  size?: true
 }
 
 export type RepositorySumAggregateInputType = {
   githubId?: true
   stars?: true
   forks?: true
+  openIssues?: true
+  size?: true
 }
 
 export type RepositoryMinAggregateInputType = {
@@ -99,6 +125,12 @@ export type RepositoryMinAggregateInputType = {
   language?: true
   stars?: true
   forks?: true
+  defaultBranch?: true
+  openIssues?: true
+  size?: true
+  htmlUrl?: true
+  githubCreatedAt?: true
+  githubUpdatedAt?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -112,6 +144,12 @@ export type RepositoryMaxAggregateInputType = {
   language?: true
   stars?: true
   forks?: true
+  defaultBranch?: true
+  openIssues?: true
+  size?: true
+  htmlUrl?: true
+  githubCreatedAt?: true
+  githubUpdatedAt?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -125,6 +163,12 @@ export type RepositoryCountAggregateInputType = {
   language?: true
   stars?: true
   forks?: true
+  defaultBranch?: true
+  openIssues?: true
+  size?: true
+  htmlUrl?: true
+  githubCreatedAt?: true
+  githubUpdatedAt?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -225,6 +269,12 @@ export type RepositoryGroupByOutputType = {
   language: string | null
   stars: number
   forks: number
+  defaultBranch: string | null
+  openIssues: number
+  size: number
+  htmlUrl: string | null
+  githubCreatedAt: Date | null
+  githubUpdatedAt: Date | null
   createdAt: Date
   updatedAt: Date
   userId: string
@@ -261,6 +311,12 @@ export type RepositoryWhereInput = {
   language?: Prisma.StringNullableFilter<"Repository"> | string | null
   stars?: Prisma.IntFilter<"Repository"> | number
   forks?: Prisma.IntFilter<"Repository"> | number
+  defaultBranch?: Prisma.StringNullableFilter<"Repository"> | string | null
+  openIssues?: Prisma.IntFilter<"Repository"> | number
+  size?: Prisma.IntFilter<"Repository"> | number
+  htmlUrl?: Prisma.StringNullableFilter<"Repository"> | string | null
+  githubCreatedAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
+  githubUpdatedAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   userId?: Prisma.StringFilter<"Repository"> | string
@@ -278,6 +334,12 @@ export type RepositoryOrderByWithRelationInput = {
   language?: Prisma.SortOrderInput | Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  defaultBranch?: Prisma.SortOrderInput | Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubCreatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -298,6 +360,12 @@ export type RepositoryWhereUniqueInput = Prisma.AtLeast<{
   language?: Prisma.StringNullableFilter<"Repository"> | string | null
   stars?: Prisma.IntFilter<"Repository"> | number
   forks?: Prisma.IntFilter<"Repository"> | number
+  defaultBranch?: Prisma.StringNullableFilter<"Repository"> | string | null
+  openIssues?: Prisma.IntFilter<"Repository"> | number
+  size?: Prisma.IntFilter<"Repository"> | number
+  htmlUrl?: Prisma.StringNullableFilter<"Repository"> | string | null
+  githubCreatedAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
+  githubUpdatedAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   userId?: Prisma.StringFilter<"Repository"> | string
@@ -315,6 +383,12 @@ export type RepositoryOrderByWithAggregationInput = {
   language?: Prisma.SortOrderInput | Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  defaultBranch?: Prisma.SortOrderInput | Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubCreatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -336,6 +410,12 @@ export type RepositoryScalarWhereWithAggregatesInput = {
   language?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
   stars?: Prisma.IntWithAggregatesFilter<"Repository"> | number
   forks?: Prisma.IntWithAggregatesFilter<"Repository"> | number
+  defaultBranch?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
+  openIssues?: Prisma.IntWithAggregatesFilter<"Repository"> | number
+  size?: Prisma.IntWithAggregatesFilter<"Repository"> | number
+  htmlUrl?: Prisma.StringNullableWithAggregatesFilter<"Repository"> | string | null
+  githubCreatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Repository"> | Date | string | null
+  githubUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Repository"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Repository"> | Date | string
   userId?: Prisma.StringWithAggregatesFilter<"Repository"> | string
@@ -349,6 +429,12 @@ export type RepositoryCreateInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRepositoriesInput
@@ -365,6 +451,12 @@ export type RepositoryUncheckedCreateInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -381,6 +473,12 @@ export type RepositoryUpdateInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRepositoriesNestedInput
@@ -397,6 +495,12 @@ export type RepositoryUncheckedUpdateInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -413,6 +517,12 @@ export type RepositoryCreateManyInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -426,6 +536,12 @@ export type RepositoryUpdateManyMutationInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -438,6 +554,12 @@ export type RepositoryUncheckedUpdateManyInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -461,6 +583,12 @@ export type RepositoryCountOrderByAggregateInput = {
   language?: Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  defaultBranch?: Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  githubCreatedAt?: Prisma.SortOrder
+  githubUpdatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -470,6 +598,8 @@ export type RepositoryAvgOrderByAggregateInput = {
   githubId?: Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
 }
 
 export type RepositoryMaxOrderByAggregateInput = {
@@ -480,6 +610,12 @@ export type RepositoryMaxOrderByAggregateInput = {
   language?: Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  defaultBranch?: Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  githubCreatedAt?: Prisma.SortOrder
+  githubUpdatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -493,6 +629,12 @@ export type RepositoryMinOrderByAggregateInput = {
   language?: Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  defaultBranch?: Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  htmlUrl?: Prisma.SortOrder
+  githubCreatedAt?: Prisma.SortOrder
+  githubUpdatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -502,6 +644,8 @@ export type RepositorySumOrderByAggregateInput = {
   githubId?: Prisma.SortOrder
   stars?: Prisma.SortOrder
   forks?: Prisma.SortOrder
+  openIssues?: Prisma.SortOrder
+  size?: Prisma.SortOrder
 }
 
 export type RepositoryScalarRelationFilter = {
@@ -559,6 +703,10 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type RepositoryCreateNestedOneWithoutCommitsInput = {
   create?: Prisma.XOR<Prisma.RepositoryCreateWithoutCommitsInput, Prisma.RepositoryUncheckedCreateWithoutCommitsInput>
   connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutCommitsInput
@@ -609,6 +757,12 @@ export type RepositoryCreateWithoutUserInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   commits?: Prisma.CommitCreateNestedManyWithoutRepositoryInput
@@ -624,6 +778,12 @@ export type RepositoryUncheckedCreateWithoutUserInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   commits?: Prisma.CommitUncheckedCreateNestedManyWithoutRepositoryInput
@@ -668,6 +828,12 @@ export type RepositoryScalarWhereInput = {
   language?: Prisma.StringNullableFilter<"Repository"> | string | null
   stars?: Prisma.IntFilter<"Repository"> | number
   forks?: Prisma.IntFilter<"Repository"> | number
+  defaultBranch?: Prisma.StringNullableFilter<"Repository"> | string | null
+  openIssues?: Prisma.IntFilter<"Repository"> | number
+  size?: Prisma.IntFilter<"Repository"> | number
+  htmlUrl?: Prisma.StringNullableFilter<"Repository"> | string | null
+  githubCreatedAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
+  githubUpdatedAt?: Prisma.DateTimeNullableFilter<"Repository"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   userId?: Prisma.StringFilter<"Repository"> | string
@@ -681,6 +847,12 @@ export type RepositoryCreateWithoutCommitsInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRepositoriesInput
@@ -696,6 +868,12 @@ export type RepositoryUncheckedCreateWithoutCommitsInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -727,6 +905,12 @@ export type RepositoryUpdateWithoutCommitsInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRepositoriesNestedInput
@@ -742,6 +926,12 @@ export type RepositoryUncheckedUpdateWithoutCommitsInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -757,6 +947,12 @@ export type RepositoryCreateWithoutLanguagesInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRepositoriesInput
@@ -772,6 +968,12 @@ export type RepositoryUncheckedCreateWithoutLanguagesInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -803,6 +1005,12 @@ export type RepositoryUpdateWithoutLanguagesInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRepositoriesNestedInput
@@ -818,6 +1026,12 @@ export type RepositoryUncheckedUpdateWithoutLanguagesInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -833,6 +1047,12 @@ export type RepositoryCreateWithoutDependenciesInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRepositoriesInput
@@ -848,6 +1068,12 @@ export type RepositoryUncheckedCreateWithoutDependenciesInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -879,6 +1105,12 @@ export type RepositoryUpdateWithoutDependenciesInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRepositoriesNestedInput
@@ -894,6 +1126,12 @@ export type RepositoryUncheckedUpdateWithoutDependenciesInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -909,6 +1147,12 @@ export type RepositoryCreateManyUserInput = {
   language?: string | null
   stars?: number
   forks?: number
+  defaultBranch?: string | null
+  openIssues?: number
+  size?: number
+  htmlUrl?: string | null
+  githubCreatedAt?: Date | string | null
+  githubUpdatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -921,6 +1165,12 @@ export type RepositoryUpdateWithoutUserInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   commits?: Prisma.CommitUpdateManyWithoutRepositoryNestedInput
@@ -936,6 +1186,12 @@ export type RepositoryUncheckedUpdateWithoutUserInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   commits?: Prisma.CommitUncheckedUpdateManyWithoutRepositoryNestedInput
@@ -951,6 +1207,12 @@ export type RepositoryUncheckedUpdateManyWithoutUserInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   forks?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultBranch?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openIssues?: Prisma.IntFieldUpdateOperationsInput | number
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  htmlUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubCreatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  githubUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1012,6 +1274,12 @@ export type RepositorySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   language?: boolean
   stars?: boolean
   forks?: boolean
+  defaultBranch?: boolean
+  openIssues?: boolean
+  size?: boolean
+  htmlUrl?: boolean
+  githubCreatedAt?: boolean
+  githubUpdatedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -1030,6 +1298,12 @@ export type RepositorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   language?: boolean
   stars?: boolean
   forks?: boolean
+  defaultBranch?: boolean
+  openIssues?: boolean
+  size?: boolean
+  htmlUrl?: boolean
+  githubCreatedAt?: boolean
+  githubUpdatedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -1044,6 +1318,12 @@ export type RepositorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   language?: boolean
   stars?: boolean
   forks?: boolean
+  defaultBranch?: boolean
+  openIssues?: boolean
+  size?: boolean
+  htmlUrl?: boolean
+  githubCreatedAt?: boolean
+  githubUpdatedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -1058,12 +1338,18 @@ export type RepositorySelectScalar = {
   language?: boolean
   stars?: boolean
   forks?: boolean
+  defaultBranch?: boolean
+  openIssues?: boolean
+  size?: boolean
+  htmlUrl?: boolean
+  githubCreatedAt?: boolean
+  githubUpdatedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type RepositoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "name" | "description" | "language" | "stars" | "forks" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["repository"]>
+export type RepositoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "githubId" | "name" | "description" | "language" | "stars" | "forks" | "defaultBranch" | "openIssues" | "size" | "htmlUrl" | "githubCreatedAt" | "githubUpdatedAt" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["repository"]>
 export type RepositoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   commits?: boolean | Prisma.Repository$commitsArgs<ExtArgs>
@@ -1094,6 +1380,12 @@ export type $RepositoryPayload<ExtArgs extends runtime.Types.Extensions.Internal
     language: string | null
     stars: number
     forks: number
+    defaultBranch: string | null
+    openIssues: number
+    size: number
+    htmlUrl: string | null
+    githubCreatedAt: Date | null
+    githubUpdatedAt: Date | null
     createdAt: Date
     updatedAt: Date
     userId: string
@@ -1531,6 +1823,12 @@ export interface RepositoryFieldRefs {
   readonly language: Prisma.FieldRef<"Repository", 'String'>
   readonly stars: Prisma.FieldRef<"Repository", 'Int'>
   readonly forks: Prisma.FieldRef<"Repository", 'Int'>
+  readonly defaultBranch: Prisma.FieldRef<"Repository", 'String'>
+  readonly openIssues: Prisma.FieldRef<"Repository", 'Int'>
+  readonly size: Prisma.FieldRef<"Repository", 'Int'>
+  readonly htmlUrl: Prisma.FieldRef<"Repository", 'String'>
+  readonly githubCreatedAt: Prisma.FieldRef<"Repository", 'DateTime'>
+  readonly githubUpdatedAt: Prisma.FieldRef<"Repository", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Repository", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Repository", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Repository", 'String'>

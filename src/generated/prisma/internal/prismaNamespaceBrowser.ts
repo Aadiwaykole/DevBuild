@@ -96,6 +96,12 @@ export const RepositoryScalarFieldEnum = {
   language: 'language',
   stars: 'stars',
   forks: 'forks',
+  defaultBranch: 'defaultBranch',
+  openIssues: 'openIssues',
+  size: 'size',
+  htmlUrl: 'htmlUrl',
+  githubCreatedAt: 'githubCreatedAt',
+  githubUpdatedAt: 'githubUpdatedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
