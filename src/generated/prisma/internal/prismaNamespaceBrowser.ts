@@ -57,7 +57,8 @@ export const ModelName = {
   RepositoryLanguage: 'RepositoryLanguage',
   Dependency: 'Dependency',
   Skill: 'Skill',
-  AIInsight: 'AIInsight'
+  AIInsight: 'AIInsight',
+  SyncJob: 'SyncJob'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -165,6 +166,19 @@ export const AIInsightScalarFieldEnum = {
 } as const
 
 export type AIInsightScalarFieldEnum = (typeof AIInsightScalarFieldEnum)[keyof typeof AIInsightScalarFieldEnum]
+
+
+export const SyncJobScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  error: 'error',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type SyncJobScalarFieldEnum = (typeof SyncJobScalarFieldEnum)[keyof typeof SyncJobScalarFieldEnum]
 
 
 export const SortOrder = {

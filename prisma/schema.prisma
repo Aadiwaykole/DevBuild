@@ -15,9 +15,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  repositories Repository[]
-  skills       Skill[]
-  insights     AIInsight[]
+repositories Repository[]
+skills       Skill[]
+insights     AIInsight[]
+syncJobs     SyncJob[]
 }
 
 model Repository {
@@ -98,4 +99,17 @@ model AIInsight {
 
   userId String
   user   User @relation(fields: [userId], references: [id])
+}
+
+model SyncJob {
+  id          String    @id @default(uuid())
+  status      String
+  startedAt   DateTime?
+  completedAt DateTime?
+  error       String?
+
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+
+  createdAt   DateTime  @default(now())
 }

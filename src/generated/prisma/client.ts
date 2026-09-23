@@ -76,3 +76,8 @@ export type Skill = Prisma.SkillModel
  * 
  */
 export type AIInsight = Prisma.AIInsightModel
+/**
+ * Model SyncJob
+ * 
+ */
+export type SyncJob = Prisma.SyncJobModel

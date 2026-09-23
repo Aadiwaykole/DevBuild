@@ -193,6 +193,7 @@ export type UserWhereInput = {
   repositories?: Prisma.RepositoryListRelationFilter
   skills?: Prisma.SkillListRelationFilter
   insights?: Prisma.AIInsightListRelationFilter
+  syncJobs?: Prisma.SyncJobListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -205,6 +206,7 @@ export type UserOrderByWithRelationInput = {
   repositories?: Prisma.RepositoryOrderByRelationAggregateInput
   skills?: Prisma.SkillOrderByRelationAggregateInput
   insights?: Prisma.AIInsightOrderByRelationAggregateInput
+  syncJobs?: Prisma.SyncJobOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -220,6 +222,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   repositories?: Prisma.RepositoryListRelationFilter
   skills?: Prisma.SkillListRelationFilter
   insights?: Prisma.AIInsightListRelationFilter
+  syncJobs?: Prisma.SyncJobListRelationFilter
 }, "id" | "githubId" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -256,6 +259,7 @@ export type UserCreateInput = {
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
   skills?: Prisma.SkillCreateNestedManyWithoutUserInput
   insights?: Prisma.AIInsightCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -268,6 +272,7 @@ export type UserUncheckedCreateInput = {
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
   skills?: Prisma.SkillUncheckedCreateNestedManyWithoutUserInput
   insights?: Prisma.AIInsightUncheckedCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -280,6 +285,7 @@ export type UserUpdateInput = {
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
   skills?: Prisma.SkillUpdateManyWithoutUserNestedInput
   insights?: Prisma.AIInsightUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -292,6 +298,7 @@ export type UserUncheckedUpdateInput = {
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
   skills?: Prisma.SkillUncheckedUpdateManyWithoutUserNestedInput
   insights?: Prisma.AIInsightUncheckedUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -407,6 +414,20 @@ export type UserUpdateOneRequiredWithoutInsightsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInsightsInput, Prisma.UserUpdateWithoutInsightsInput>, Prisma.UserUncheckedUpdateWithoutInsightsInput>
 }
 
+export type UserCreateNestedOneWithoutSyncJobsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSyncJobsInput, Prisma.UserUncheckedCreateWithoutSyncJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSyncJobsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSyncJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSyncJobsInput, Prisma.UserUncheckedCreateWithoutSyncJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSyncJobsInput
+  upsert?: Prisma.UserUpsertWithoutSyncJobsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSyncJobsInput, Prisma.UserUpdateWithoutSyncJobsInput>, Prisma.UserUncheckedUpdateWithoutSyncJobsInput>
+}
+
 export type UserCreateWithoutRepositoriesInput = {
   id?: string
   githubId: string
@@ -416,6 +437,7 @@ export type UserCreateWithoutRepositoriesInput = {
   updatedAt?: Date | string
   skills?: Prisma.SkillCreateNestedManyWithoutUserInput
   insights?: Prisma.AIInsightCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRepositoriesInput = {
@@ -427,6 +449,7 @@ export type UserUncheckedCreateWithoutRepositoriesInput = {
   updatedAt?: Date | string
   skills?: Prisma.SkillUncheckedCreateNestedManyWithoutUserInput
   insights?: Prisma.AIInsightUncheckedCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRepositoriesInput = {
@@ -454,6 +477,7 @@ export type UserUpdateWithoutRepositoriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   skills?: Prisma.SkillUpdateManyWithoutUserNestedInput
   insights?: Prisma.AIInsightUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRepositoriesInput = {
@@ -465,6 +489,7 @@ export type UserUncheckedUpdateWithoutRepositoriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   skills?: Prisma.SkillUncheckedUpdateManyWithoutUserNestedInput
   insights?: Prisma.AIInsightUncheckedUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSkillsInput = {
@@ -476,6 +501,7 @@ export type UserCreateWithoutSkillsInput = {
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
   insights?: Prisma.AIInsightCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSkillsInput = {
@@ -487,6 +513,7 @@ export type UserUncheckedCreateWithoutSkillsInput = {
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
   insights?: Prisma.AIInsightUncheckedCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSkillsInput = {
@@ -514,6 +541,7 @@ export type UserUpdateWithoutSkillsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
   insights?: Prisma.AIInsightUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSkillsInput = {
@@ -525,6 +553,7 @@ export type UserUncheckedUpdateWithoutSkillsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
   insights?: Prisma.AIInsightUncheckedUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInsightsInput = {
@@ -536,6 +565,7 @@ export type UserCreateWithoutInsightsInput = {
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
   skills?: Prisma.SkillCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInsightsInput = {
@@ -547,6 +577,7 @@ export type UserUncheckedCreateWithoutInsightsInput = {
   updatedAt?: Date | string
   repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
   skills?: Prisma.SkillUncheckedCreateNestedManyWithoutUserInput
+  syncJobs?: Prisma.SyncJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInsightsInput = {
@@ -574,6 +605,7 @@ export type UserUpdateWithoutInsightsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
   skills?: Prisma.SkillUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInsightsInput = {
@@ -585,6 +617,71 @@ export type UserUncheckedUpdateWithoutInsightsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
   skills?: Prisma.SkillUncheckedUpdateManyWithoutUserNestedInput
+  syncJobs?: Prisma.SyncJobUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSyncJobsInput = {
+  id?: string
+  githubId: string
+  username: string
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryCreateNestedManyWithoutUserInput
+  skills?: Prisma.SkillCreateNestedManyWithoutUserInput
+  insights?: Prisma.AIInsightCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSyncJobsInput = {
+  id?: string
+  githubId: string
+  username: string
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  repositories?: Prisma.RepositoryUncheckedCreateNestedManyWithoutUserInput
+  skills?: Prisma.SkillUncheckedCreateNestedManyWithoutUserInput
+  insights?: Prisma.AIInsightUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSyncJobsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSyncJobsInput, Prisma.UserUncheckedCreateWithoutSyncJobsInput>
+}
+
+export type UserUpsertWithoutSyncJobsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSyncJobsInput, Prisma.UserUncheckedUpdateWithoutSyncJobsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSyncJobsInput, Prisma.UserUncheckedCreateWithoutSyncJobsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSyncJobsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSyncJobsInput, Prisma.UserUncheckedUpdateWithoutSyncJobsInput>
+}
+
+export type UserUpdateWithoutSyncJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUpdateManyWithoutUserNestedInput
+  skills?: Prisma.SkillUpdateManyWithoutUserNestedInput
+  insights?: Prisma.AIInsightUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSyncJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  githubId?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  repositories?: Prisma.RepositoryUncheckedUpdateManyWithoutUserNestedInput
+  skills?: Prisma.SkillUncheckedUpdateManyWithoutUserNestedInput
+  insights?: Prisma.AIInsightUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -596,12 +693,14 @@ export type UserCountOutputType = {
   repositories: number
   skills: number
   insights: number
+  syncJobs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repositories?: boolean | UserCountOutputTypeCountRepositoriesArgs
   skills?: boolean | UserCountOutputTypeCountSkillsArgs
   insights?: boolean | UserCountOutputTypeCountInsightsArgs
+  syncJobs?: boolean | UserCountOutputTypeCountSyncJobsArgs
 }
 
 /**
@@ -635,6 +734,13 @@ export type UserCountOutputTypeCountInsightsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AIInsightWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSyncJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SyncJobWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -646,6 +752,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   repositories?: boolean | Prisma.User$repositoriesArgs<ExtArgs>
   skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
   insights?: boolean | Prisma.User$insightsArgs<ExtArgs>
+  syncJobs?: boolean | Prisma.User$syncJobsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -681,6 +788,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   repositories?: boolean | Prisma.User$repositoriesArgs<ExtArgs>
   skills?: boolean | Prisma.User$skillsArgs<ExtArgs>
   insights?: boolean | Prisma.User$insightsArgs<ExtArgs>
+  syncJobs?: boolean | Prisma.User$syncJobsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -692,6 +800,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     repositories: Prisma.$RepositoryPayload<ExtArgs>[]
     skills: Prisma.$SkillPayload<ExtArgs>[]
     insights: Prisma.$AIInsightPayload<ExtArgs>[]
+    syncJobs: Prisma.$SyncJobPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1097,6 +1206,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   repositories<T extends Prisma.User$repositoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$repositoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RepositoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   skills<T extends Prisma.User$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   insights<T extends Prisma.User$insightsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$insightsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  syncJobs<T extends Prisma.User$syncJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$syncJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SyncJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1594,6 +1704,30 @@ export type User$insightsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AIInsightScalarFieldEnum | Prisma.AIInsightScalarFieldEnum[]
+}
+
+/**
+ * User.syncJobs
+ */
+export type User$syncJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SyncJob
+   */
+  select?: Prisma.SyncJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SyncJob
+   */
+  omit?: Prisma.SyncJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SyncJobInclude<ExtArgs> | null
+  where?: Prisma.SyncJobWhereInput
+  orderBy?: Prisma.SyncJobOrderByWithRelationInput | Prisma.SyncJobOrderByWithRelationInput[]
+  cursor?: Prisma.SyncJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SyncJobScalarFieldEnum | Prisma.SyncJobScalarFieldEnum[]
 }
 
 /**

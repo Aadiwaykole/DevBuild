@@ -16,6 +16,14 @@ interface GitHubRepository {
   language: string | null;
   stargazers_count: number;
   forks_count: number;
+
+  default_branch: string;
+  open_issues_count: number;
+  size: number;
+  html_url: string;
+
+  created_at: string;
+  updated_at: string;
 }
 
 export async function syncGithubData(accessToken: string) {
@@ -72,23 +80,42 @@ export async function syncGithubData(accessToken: string) {
       where: {
         githubId: repo.id,
       },
-      update: {
-        name: repo.name,
-        description: repo.description,
-        language: repo.language,
-        stars: repo.stargazers_count,
-        forks: repo.forks_count,
-        userId: user.id,
-      },
-      create: {
-        githubId: repo.id,
-        name: repo.name,
-        description: repo.description,
-        language: repo.language,
-        stars: repo.stargazers_count,
-        forks: repo.forks_count,
-        userId: user.id,
-      },
+  update: {
+  name: repo.name,
+  description: repo.description,
+  language: repo.language,
+  stars: repo.stargazers_count,
+  forks: repo.forks_count,
+
+  defaultBranch: repo.default_branch,
+  openIssues: repo.open_issues_count,
+  size: repo.size,
+  htmlUrl: repo.html_url,
+
+  githubCreatedAt: new Date(repo.created_at),
+  githubUpdatedAt: new Date(repo.updated_at),
+
+  userId: user.id,
+},
+
+create: {
+  githubId: repo.id,
+  name: repo.name,
+  description: repo.description,
+  language: repo.language,
+  stars: repo.stargazers_count,
+  forks: repo.forks_count,
+
+  defaultBranch: repo.default_branch,
+  openIssues: repo.open_issues_count,
+  size: repo.size,
+  htmlUrl: repo.html_url,
+
+  githubCreatedAt: new Date(repo.created_at),
+  githubUpdatedAt: new Date(repo.updated_at),
+
+  userId: user.id,
+},
     });
 
     const commitsSynced = await syncGithubCommits(

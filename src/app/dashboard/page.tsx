@@ -9,6 +9,7 @@ import DeveloperTimeline from "@/components/dashboard/DeveloperTimeline";
 import SkillDetection from "@/components/dashboard/SkillDetection";
 import AIInsights from "@/components/dashboard/AIInsights";
 import SyncGithubButton from "@/components/dashboard/SyncGithubButton";
+import { prisma } from "@/lib/prisma";
 
 interface GitHubRepository {
   id: number;
@@ -28,41 +29,56 @@ interface GitHubRepository {
   };
 }
 
+
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
 
   if (!session?.accessToken) {
     redirect("/");
   }
+  const githubResponse = await fetch("https://api.github.com/user", {
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+      Accept: "application/vnd.github+json",
+    },
+  });
 
-  const response = await fetch(
-    "https://api.github.com/user/repos?sort=updated&per_page=20",
-    {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-        Accept: "application/vnd.github+json",
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch repositories");
+  if (!githubResponse.ok) {
+    redirect("/");
   }
 
-  const repositories: GitHubRepository[] = await response.json();
+  const githubUser = await githubResponse.json();
+
+  const user = await prisma.user.findUnique({
+    where: {
+      githubId: String(githubUser.id),
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found. Please sync GitHub data first.");
+  }
+
+  const repositories = await prisma.repository.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: {
+      githubUpdatedAt: "desc",
+    },
+  });
 
   const totalRepositories = repositories.length;
 
   const totalStars = repositories.reduce(
-    (total, repo) => total + repo.stargazers_count,
+    (total, repo) => total + repo.stars,
     0
   );
 
   const totalForks = repositories.reduce(
-    (total, repo) => total + repo.forks_count,
+    (total, repo) => total + repo.forks,
     0
   );
-
   const languages = new Set(
     repositories
       .map((repo) => repo.language)
@@ -117,7 +133,7 @@ export default async function Dashboard() {
 
         <DeveloperActivity />
         <DeveloperTimeline />
-        <SkillDetection/>
+        <SkillDetection />
         <AIInsights />
         <LanguageAnalysis />
 
@@ -130,20 +146,19 @@ export default async function Dashboard() {
             {repositories.map((repo) => (
               <RepositoryCard
                 key={repo.id}
-                owner={repo.owner.login}
+                owner={user.username}
                 name={repo.name}
                 description={repo.description}
                 language={repo.language}
-                stars={repo.stargazers_count}
-                forks={repo.forks_count}
-                createdAt={repo.created_at}
-                updatedAt={repo.updated_at}
-                defaultBranch={repo.default_branch}
-                openIssues={repo.open_issues_count}
+                stars={repo.stars}
+                forks={repo.forks}
+                createdAt={repo.githubCreatedAt?.toISOString() ?? ""}
+                updatedAt={repo.githubUpdatedAt?.toISOString() ?? ""}
+                defaultBranch={repo.defaultBranch ?? ""}
+                openIssues={repo.openIssues}
                 size={repo.size}
-                url={repo.html_url}
+                url={repo.htmlUrl ?? ""}
               />
-
             ))}
 
           </div>
