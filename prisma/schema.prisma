@@ -8,17 +8,19 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  githubId  String   @unique
-  username  String   @unique
-  email     String?
+  id                String   @id @default(uuid())
+  githubId          String   @unique
+  username          String   @unique
+  email             String?
+  githubAccessToken  String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-repositories Repository[]
-skills       Skill[]
-insights     AIInsight[]
-syncJobs     SyncJob[]
+  repositories Repository[]
+  skills       Skill[]
+  insights     AIInsight[]
+  syncJobs     SyncJob[]
 }
 
 model Repository {
